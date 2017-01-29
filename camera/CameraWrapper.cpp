@@ -115,7 +115,7 @@ static char *camera_fixup_getparams(int id, const char *settings)
 #endif
 
     // fix params here
-    params.set(android::CameraParameters::KEY_SUPPORTED_ISO_MODES, iso_values[id]);
+    params.set(android::CameraParameters::KEY_SUPPORTED_FLASH_MODES, iso_values[id]);
     params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.5");
     params.set(android::CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-2");
     params.set(android::CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "2");
@@ -158,15 +158,15 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
 
     // No need to fix-up ISO_HJR, it is the same for userspace and the camera lib
     if (params.get("iso")) {
-        const char *isoMode = params.get(android::CameraParameters::KEY_ISO_MODE);
+        const char *isoMode = params.get(android::CameraParameters::KEY_SUPPORTED_FLASH_MODES);
         if (strcmp(isoMode, "ISO100") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "100");
+            params.set(android::CameraParameters::KEY_FLASH_MODE, "100");
         else if (strcmp(isoMode, "ISO200") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "200");
+            params.set(android::CameraParameters::KEY_FLASH_MODE, "200");
         else if (strcmp(isoMode, "ISO400") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "400");
+            params.set(android::CameraParameters::KEY_FLASH_MODE, "400");
         else if (strcmp(isoMode, "ISO800") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "800");
+            params.set(android::CameraParameters::KEY_FLASH_MODE, "800");
     }
 	
     int video_width, video_height;
